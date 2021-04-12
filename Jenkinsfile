@@ -1,4 +1,4 @@
-node {
+pipeline {
     def app
 	
 	parameters {
@@ -16,7 +16,9 @@ node {
         /* This builds the actual image */
 
         app = docker.build("aravindhsz/new_pro")
+	    steps{
 	    echo "hello multibranch statements ${params.branch}"
+	    }
     }
 
    /*
