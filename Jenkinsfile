@@ -1,5 +1,10 @@
 node {
     def app
+	
+	parameters {
+		choice(name: 'branch', choices: ['master','first','second'],description:'')
+		
+	}
 
     stage('Clone repository') {
         /* Cloning the Repository to our Workspace */
@@ -11,6 +16,7 @@ node {
         /* This builds the actual image */
 
         app = docker.build("aravindhsz/new_pro")
+	    echo "hello multibranch statements ${params.branch}"
     }
 
    
