@@ -1,5 +1,4 @@
-properties([parameters([[$class: 'ChoiceParameter', choiceType: 'PT_SINGLE_SELECT', description: 'taking branch from git repo', filterLength: 1, filterable: false, name: 'branch', randomName: 'choice-parameter-101029974328400']])])
-def gettags = ("git ls-remote -t -h https://github.com/aravindhsz/NodeApp.git").execute()
+properties([parameters([[$class: 'ChoiceParameter', choiceType: 'PT_SINGLE_SELECT', description: 'taking branch from git repo', filterLength: 1, filterable: false, name: 'branch', randomName: 'choice-parameter-101029974328400']])])def gettags = ("git ls-remote -t -h https://github.com/aravindhsz/NodeApp.git").execute()
 return gettags.text.readLines().collect { 
   it.split()[1].replaceAll('refs/heads/', '').replaceAll('refs/tags/', '').replaceAll("\\^\\{\\}", '')
 }
