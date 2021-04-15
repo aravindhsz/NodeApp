@@ -1,3 +1,7 @@
+def gettags = ("git ls-remote -t -h https://github.com/aravindhsz/NodeApp.git").execute()
+return gettags.text.readLines().collect { 
+  it.split()[1].replaceAll('refs/heads/', '').replaceAll('refs/tags/', '').replaceAll("\\^\\{\\}", '')
+}
 node {
     def app
 	
@@ -16,9 +20,6 @@ node {
         /* This builds the actual image */
 
         app = docker.build("aravindhsz/new_pro")
-	    steps{
-	    echo "hello multibranch statements ${params.branch}"
-	    }
     }
 
    /*
