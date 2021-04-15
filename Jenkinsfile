@@ -1,7 +1,8 @@
-def gettags = ("git ls-remote -t -h https://github.com/aravindhsz/NodeApp.git").execute()
+properties([parameters([[$class: 'ChoiceParameter', choiceType: 'PT_SINGLE_SELECT', description: 'taking branch from git repo', filterLength: 1, filterable: false, name: 'branch', randomName: 'choice-parameter-102185544867300', script: [$class: 'GroovyScript', fallbackScript: [classpath: [], sandbox: false, script: ''], script: [classpath: [], sandbox: false, script: '''
+def gettags = ("git ls-remote -t -h https://USER:PASS@bitbucket.org/project_name.git").execute()
 return gettags.text.readLines().collect { 
-  it.split()[1].replaceAll('refs/heads/', '').replaceAll('refs/tags/', '').replaceAll("\\^\\{\\}", '')
-}
+  it.split()[1].replaceAll(\'refs/heads/\', \'\').replaceAll(\'refs/tags/\', \'\').replaceAll("\\\\^\\\\{\\\\}", \'\')
+}''']]]])])
 node {
     def app
 	
