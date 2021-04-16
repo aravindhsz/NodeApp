@@ -3,35 +3,47 @@ def gettags = ("git ls-remote -t -h https://github.com/aravindhsz/NodeApp.git").
 return gettags.text.readLines().collect { 
   it.split()[1].replaceAll(\'refs/heads/\', \'\').replaceAll(\'refs/tags/\', \'\').replaceAll("\\\\^\\\\{\\\\}", \'\')
 }''']]]])])
-pipeline{
+pipeline
+{
     environment
-	{
-		dockerimage=''
-	}
-	agent any
+    {
+        imagename="aravindhsz/image-4"
+        registryCredential='dockerhub'
+        dockerImage=''
+    }
+    agent any
     stages{
-   	 stage('Clone repository') {
-        /* Cloning the Repository to our Workspace */
-		 
-   	 }
 
-  	 stage('Build image') {
-        /* This builds the actual image */
-		 
-  	  }
-    }
-
-   /*
-    stage('Push image') {
-        
-			You would need to first register with DockerHub before you can push images to your account
-		
-        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub') {
-            app.push("${env.BUILD_NUMBER}")
-            app.push("latest")
-            } 
-                echo "Trying to Push Docker Build to DockerHub"
-    }
-*/
+    stage('Cloning Git') {
 	
+        /* Cloning the Repository to our Workspace */
+        steps{
+
+        git 'https://github.com/aravindhsz/Hello-world.git'
+               }
+         }
+    stage('Build image') {
+        /* This builds the actual image */
+        steps{
+
+        script {
+dockerImage = docker.build imagename
+                }
+            }
+        }
+	    /*
+    stage('Push image') {
+        steps
+        {
+        script
+        {
+        docker.withRegistry( '', registryCredential){
+        dockerImage.push()
+        
+        }
+        }
+       }
+       
+    }*/
+  }
 }
