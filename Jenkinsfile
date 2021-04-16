@@ -17,7 +17,7 @@ pipeline {
 		stage('building'){
 			steps{
 				script{
-				app = docker.build("aravindhsz/nodeP")
+				app = docker.build("aravindhsz/node")
 				}
 			}
 		}
