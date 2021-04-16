@@ -11,7 +11,8 @@ pipeline {
 	stages{
 		stage('cloning'){
 			steps{
-				echo "cloning"
+				echo "checking out the remote repo"
+				git 'https://github.com/aravindhsz/Hello-world.git'
 			}
 		}
 		stage('building'){
