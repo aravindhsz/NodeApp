@@ -3,22 +3,26 @@ def gettags = ("git ls-remote -t -h https://github.com/aravindhsz/NodeApp.git").
 return gettags.text.readLines().collect { 
   it.split()[1].replaceAll(\'refs/heads/\', \'\').replaceAll(\'refs/tags/\', \'\').replaceAll("\\\\^\\\\{\\\\}", \'\')
 }''']]]])])
-node {
-    def app
-	
-	
-
-    stage('Clone repository') {
-        /* Cloning the Repository to our Workspace */
-
-        checkout scm
-    }
-
-    stage('Build image') {
-        /* This builds the actual image */
-
-        app = docker.build("aravindhsz/new_pro")
-    }
+pipeline {
+	environment{
+		app=''
+	}
+	agent any
+	stages{
+		stage('cloning'){
+			steps{
+				echo "checking out the remote repo"
+				checkout([$class: 'GitSCM', branches: [[name: '*/$branch']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/aravindhsz/Hello-world.git']]])
+			}
+		}
+		stage('building'){
+			steps{
+				script{
+				app = docker.build("aravindhsz/node")
+				}
+			}
+		}
+	}
 
    /*
     stage('Push image') {
