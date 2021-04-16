@@ -12,7 +12,7 @@ pipeline {
 		stage('cloning'){
 			steps{
 				echo "checking out the remote repo"
-				git 'https://github.com/aravindhsz/Hello-world.git'
+				checkout([$class: 'GitSCM', branches: [[name: '*/$branch']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/aravindhsz/Hello-world.git']]])
 			}
 		}
 		stage('building'){
