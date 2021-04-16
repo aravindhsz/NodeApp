@@ -3,11 +3,12 @@ def gettags = ("git ls-remote -t -h https://github.com/aravindhsz/NodeApp.git").
 return gettags.text.readLines().collect { 
   it.split()[1].replaceAll(\'refs/heads/\', \'\').replaceAll(\'refs/tags/\', \'\').replaceAll("\\\\^\\\\{\\\\}", \'\')
 }''']]]])])
-node {
+pipeline{
+	agent any
     def app
 	
 	
-
+	stages{
     stage('Clone repository') {
         /* Cloning the Repository to our Workspace */
 
@@ -32,4 +33,5 @@ node {
                 echo "Trying to Push Docker Build to DockerHub"
     }
 */
+	}
 }
