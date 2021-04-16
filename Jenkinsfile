@@ -11,8 +11,7 @@ pipeline{
 	stages{
     stage('Clone repository') {
         /* Cloning the Repository to our Workspace */
-	echo "going to check the remote repo"
-        checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/aravindhsz/Hello-world.git']]])
+
 
        // checkout scm
     }
