@@ -4,23 +4,24 @@ return gettags.text.readLines().collect {
   it.split()[1].replaceAll(\'refs/heads/\', \'\').replaceAll(\'refs/tags/\', \'\').replaceAll("\\\\^\\\\{\\\\}", \'\')
 }''']]]])])
 pipeline{
+    environment
+	{
+		dockerimage=''
+	}
 	agent any
-    def app
-	
-	
-	stages{
-    stage('Clone repository') {
+    stages{
+   	 stage('Clone repository') {
         /* Cloning the Repository to our Workspace */
 
-
+        echo "cloning"
        // checkout scm
-    }
+   	 }
 
-    stage('Build image') {
+  	 stage('Build image') {
         /* This builds the actual image */
 
-        app = docker.build("aravindhsz/new_pro")
-    }
+        dockerimage = docker.build("aravindhsz/new_pro")
+  	  }
 
    /*
     stage('Push image') {
