@@ -12,15 +12,16 @@ pipeline{
     stages{
    	 stage('Clone repository') {
         /* Cloning the Repository to our Workspace */
-
-        echo "cloning"
-       // checkout scm
+		 steps{
+       			 echo "cloning"
+     			  // checkout scm
    	 }
 
   	 stage('Build image') {
         /* This builds the actual image */
-
-        dockerimage = docker.build("aravindhsz/new_pro")
+		 script{
+      			  dockerimage = docker.build("aravindhsz/new_pro")
+		 }
   	  }
 
    /*
