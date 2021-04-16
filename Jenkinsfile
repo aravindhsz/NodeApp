@@ -4,7 +4,7 @@ return gettags.text.readLines().collect {
   it.split()[1].replaceAll(\'refs/heads/\', \'\').replaceAll(\'refs/tags/\', \'\').replaceAll("\\\\^\\\\{\\\\}", \'\')
 }''']]]])])
 pipeline {
-	enviroment{
+	environment{
 		app=''
 	}
 	agent any
