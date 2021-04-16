@@ -15,6 +15,7 @@ pipeline{
 		 steps{
        			 echo "cloning"
      			  // checkout scm
+		 }
    	 }
 
   	 stage('Build image') {
