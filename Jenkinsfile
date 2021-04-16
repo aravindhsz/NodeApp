@@ -12,18 +12,14 @@ pipeline{
     stages{
    	 stage('Clone repository') {
         /* Cloning the Repository to our Workspace */
-		 steps{
-       			 echo "cloning"
-     			  // checkout scm
-		 }
+		 
    	 }
 
   	 stage('Build image') {
         /* This builds the actual image */
-		 script{
-      			  dockerimage = docker.build("aravindhsz/new_pro")
-		 }
+		 
   	  }
+    }
 
    /*
     stage('Push image') {
@@ -37,5 +33,5 @@ pipeline{
                 echo "Trying to Push Docker Build to DockerHub"
     }
 */
-	}
+	
 }
