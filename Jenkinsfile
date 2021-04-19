@@ -7,7 +7,7 @@ pipeline {
 	environment{
 		app=''
 	}
-	agent any
+	agent {label 'master'}
 	stages{
 		stage('cloning'){
 			steps{
