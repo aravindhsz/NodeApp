@@ -11,7 +11,7 @@ pipeline {
 	stages{
 		stage('cloning'){
 			steps{
-				echo "checking out the remote repo"
+				echo "checking out the remote repo from the ${env.NODE_NAME} node"
 				checkout([$class: 'GitSCM', branches: [[name: '*/$branch']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/aravindhsz/Hello-world.git']]])
 			}
 		}
