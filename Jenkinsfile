@@ -17,7 +17,20 @@ node {
     stage('Build image') {
         /* This builds the actual image */
 
-        app = docker.build("aravindhsz/new_pro")
+       int exitcode = 0
+for (slave in hudson.model.Hudson.instance.slaves) {
+ if (slave.getComputer().isOffline().toString() == "true"){
+ println('The SLAVE: ' + slave.name + " is currently offline!");
+ exitcode++;
+ }else{
+   println('No slaves are offline at the moment');
+ }
+}
+
+if (exitcode > 0){
+ println("A slave is down so exiting...., failing the build!");
+ return 1;
+}
     }
 
    /*
