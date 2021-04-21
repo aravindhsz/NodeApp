@@ -3,6 +3,21 @@ def gettags = ("git ls-remote -t -h https://github.com/aravindhsz/NodeApp.git").
 return gettags.text.readLines().collect { 
   it.split()[1].replaceAll(\'refs/heads/\', \'\').replaceAll(\'refs/tags/\', \'\').replaceAll("\\\\^\\\\{\\\\}", \'\')
 }''']]]])])
+int exitcode = 0
+for (slave in hudson.model.Hudson.instance.slaves) {
+ if (slave.getComputer().isOffline().toString() == "true"){
+ println('The SLAVE: ' + slave.name + " is currently offline!");
+ exitcode++;
+ }else{
+   println('No slaves are offline at the moment');
+ }
+}
+
+if (exitcode > 0){
+ println("A slave is down so exiting...., failing the build!");
+ return 1;
+}
+
 node {
     def app
 	
@@ -17,20 +32,7 @@ node {
     stage('Build image') {
         /* This builds the actual image */
 
-       int exitcode = 0
-for (slave in hudson.model.Hudson.instance.slaves) {
- if (slave.getComputer().isOffline().toString() == "true"){
- println('The SLAVE: ' + slave.name + " is currently offline!");
- exitcode++;
- }else{
-   println('No slaves are offline at the moment');
- }
-}
-
-if (exitcode > 0){
- println("A slave is down so exiting...., failing the build!");
- return 1;
-}
+       
     }
 
    /*
